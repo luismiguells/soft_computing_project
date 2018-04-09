@@ -3,8 +3,8 @@
 Aquí están los archivos del proyecto del chino y están los links donde explica paso a paso, el primero es como lo realizo
 sólo usando una neurona y en el segundo link como lo hizo con una red neuronal y backpropagation
 
-[1] https://mmlind.github.io/Simple_1-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
-[2] https://mmlind.github.io/Simple_3-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
+ https://mmlind.github.io/Simple_1-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
+ https://mmlind.github.io/Simple_3-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
 
 He visto que en la carpeta 'util' son las utilidades hay 6 archivos
 1) mnist-utils.c y mnist-utils.h sirven para abrir la base de datos
