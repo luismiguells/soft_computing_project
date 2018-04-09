@@ -14,4 +14,4 @@ He visto que en la carpeta 'util' son las utilidades hay 6 archivos:
 3) screen.c y screen.h que sirven para limpiar la pantalla y poner colores más o menos entendí pero creo que no se usa
 4) 3lnn.c y 3lnn.h es la red neuronal con backpropagation
 
-Para correlo, en la terminal sólo escriben 'make' y después para ejecutarlo './bin/mnist-3lnn'
+Para correlo, en la terminal sólo escriben 'make' y después para ejecutarlo './bin/mnist-3lnn'.
