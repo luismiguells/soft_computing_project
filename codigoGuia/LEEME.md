@@ -4,6 +4,7 @@ Aquí están los archivos del proyecto del chino y están los links donde explic
 sólo usando una neurona y en el segundo link como lo hizo con una red neuronal y backpropagation
 
  https://mmlind.github.io/Simple_1-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
+ 
  https://mmlind.github.io/Simple_3-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
 
 He visto que en la carpeta 'util' son las utilidades hay 6 archivos
