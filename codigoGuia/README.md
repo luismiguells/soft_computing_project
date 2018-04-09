@@ -1,7 +1,7 @@
 # Código de guía para el proyecto
 
 Aquí están los archivos del proyecto del chino y están los links donde explica paso a paso, el primero es como lo realizo
-sólo usando una neurona y en el segundo link como lo hizo con una red neuronal y backpropagation
+sólo usando una neurona y en el segundo link como lo hizo con una red neuronal y backpropagation, hasta el final de la página antes delos comentarios viene el link para el repositorio de donde tiene su proyecto.
 
  https://mmlind.github.io/Simple_1-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
  
