@@ -1,4 +1,4 @@
-#Código de guía para el proyecto
+# Código de guía para el proyecto
 
 Aquí están los archivos del proyecto del chino y están los links donde explica paso a paso, el primero es como lo realizo
 sólo usando una neurona y en el segundo link como lo hizo con una red neuronal y backpropagation
