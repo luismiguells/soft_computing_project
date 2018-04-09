@@ -7,7 +7,7 @@ sólo usando una neurona y en el segundo link como lo hizo con una red neuronal 
  
  https://mmlind.github.io/Simple_3-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
 
-He visto que en la carpeta 'util' son las utilidades hay 6 archivos
+He visto que en la carpeta 'util' son las utilidades hay 6 archivos:
 1) mnist-utils.c y mnist-utils.h sirven para abrir la base de datos
 2) mnist-stats.c y mnist-stats.h sirven para desplegar el progreso ya sea el 20% o 60% al entrenar la red, así como
    también dibujar los números en pantalla
