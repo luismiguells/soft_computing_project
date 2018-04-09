@@ -107,6 +107,7 @@ MNIST_Label getLabel(FILE *labelFile){
     result = fread(&lbl, sizeof(lbl), 1, labelFile);
     if(result != 1){
         printf("Error al abrir la etiqueta\n");
+        exit(1);
     }
 
     return lbl;
