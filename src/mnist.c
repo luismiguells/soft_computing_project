@@ -112,3 +112,43 @@ MNIST_Label getLabel(FILE *labelFile){
 
     return lbl;
 }
+
+//Dibujamos el recuadro donde van a estar los numeros
+void displayImageFrame(int row, int col){
+    printf("------------------------------\n");
+    
+    for (int i = 0; i < MNIST_IMG_HEIGHT; i++){
+        for (int o = 0; o < col-1; o++) printf(" ");
+        printf("|                            |\n");
+    }
+
+    for (int o = 0; o < col-1; o++) printf(" ");
+    printf("------------------------------\n");
+    
+}
+
+//Desplegamos la imagen dentro del recuadro
+void displayImage(MNIST_Image *img, int lbl, int cls, int row, int col){
+
+    //Obtenemos un arreglo en que alamacenamos la posicion
+    char imgStr[(MNIST_IMG_HEIGHT * MNIST_IMG_WIDTH)+((col+1)*MNIST_IMG_HEIGHT)+1];
+    strcpy(imgStr, "");
+    
+    for (int y = 0; y < MNIST_IMG_HEIGHT; y++){
+        
+        for (int o = 0; o < col-2; o++) strcat(imgStr," ");
+        strcat(imgStr, "|");
+        
+        for (int x = 0; x < MNIST_IMG_WIDTH; x++){
+            //Con la posicion obtenido verificamos si existe un numero si es así ponemos una 'X' si no '.'
+            strcat(imgStr, img->pixel[y*MNIST_IMG_HEIGHT+x] ? "X" : "." );
+        }
+        strcat(imgStr,"\n");
+    }
+    
+    printf("%s",imgStr);
+    
+    printf("     Actual:%d   Prediccion:%d\n\n",lbl,cls);
+    
+}
+
