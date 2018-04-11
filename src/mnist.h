@@ -52,3 +52,10 @@ MNIST_Image getImage(FILE *imageFile); //Se obtiene la imagen
 
 
 MNIST_Label getLabel(FILE *labelFile); //Se obtiene la etiqueta
+
+void displayImageFrame(int y, int x); //Nos da un cuadro de 28x28 para mostrar la imagen
+
+//Se muestra el numero actual dentro del cuadro 
+void displayImage(MNIST_Image *img, int lbl, int cls, int row, int col);
+
+
