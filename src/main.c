@@ -1,22 +1,18 @@
 #include <stdlib.h>
-#include <time.h>
 #include "mnist.h"
-#include "3lnn.h"
+#include "RNA.h"
 
 
 
-/**
- * @brief Returns a Vector holding the image pixels of a given MNIST image
- * @param img A pointer to a MNIST image
- */
-
+//Se obtiene un vector el cual contiene los pixeles de la imagen
 Vector *getVectorFromImage(MNIST_Image *img){
     
+    //Se reserva memoria 
     Vector *v = (Vector*)malloc(sizeof(Vector) + (MNIST_IMG_WIDTH*MNIST_IMG_HEIGHT * sizeof(double)));
     
     v->size = MNIST_IMG_WIDTH*MNIST_IMG_HEIGHT;
     
-    for (int i=0;i<v->size;i++)
+    for (int i = 0; i < v->size; i++)
         v->vals[i] = img->pixel[i] ? 1 : 0;
     
     return v;
@@ -24,93 +20,82 @@ Vector *getVectorFromImage(MNIST_Image *img){
 
 
 
-
-/**
- * @brief Training the network by processing the MNIST training set and updating the weights
- * @param nn A pointer to the NN
- */
-
+//Se entrena la red
 void trainNetwork(Network *nn){
     
-    // open MNIST files
+    //Se abren los archivos de prueba
     FILE *imageFile, *labelFile;
     imageFile = openMNISTImageFile(MNIST_TRAINING_SET_IMAGE_FILE_NAME);
     labelFile = openMNISTLabelFile(MNIST_TRAINING_SET_LABEL_FILE_NAME);
     
     int errCount = 0;
 
-    // Loop through all images in the file
+    //Se recorre cada una de las imagenes de la red
     printf("La red se esta entrenando...\n");
-    for (int imgCount=0; imgCount<MNIST_MAX_TRAINING_IMAGES; imgCount++){
+    for (int imgCount = 0; imgCount < MNIST_MAX_TRAINING_IMAGES; imgCount++){
         
-        // Reading next image and its corresponding label
+        //Se lee la imagen con su correspondiente etiqueta
         MNIST_Image img = getImage(imageFile);
         MNIST_Label lbl = getLabel(labelFile);
         
-        // Convert the MNIST image to a standardized vector format and feed into the network
+        //Se convierte la imagen a un vector para ingresar a la red
         Vector *inpVector = getVectorFromImage(&img);
         feedInput(nn, inpVector);
         
-        // Feed forward all layers (from input to hidden to output) calculating all nodes' output
+        //Se hacen los calculos hacia delante
         feedForwardNetwork(nn);
         
-        // Back propagate the error and adjust weights in all layers accordingly
+        //Se realiza backpropagation
         backPropagateNetwork(nn, lbl);
         
-        // Classify image by choosing output cell with highest output
+        //Se clasifica la imagen escogiendo la salida mas alta
         int classification = getNetworkClassification(nn);
-        if (classification!=lbl) errCount++;
-        
-        // Display progress during training
-        //displayTrainingProgress(imgCount, errCount, 3,5);
-//        displayImage(&img, lbl, classification, 7,6);
 
+        //Se va contando cuantas veces se equivoca
+        if (classification != lbl){
+            errCount++;
+        }
     }
     
-    // Close files
+    //Cierran archivos
     fclose(imageFile);
     fclose(labelFile);
     
 }
 
 
-
-
-/**
- * @brief Testing the trained network by processing the MNIST testing set WITHOUT updating weights
- * @param nn A pointer to the NN
- */
-
+//Se prueba la red
 void testNetwork(Network *nn){
     
-    // open MNIST files
+    //Se abren los archivos
     FILE *imageFile, *labelFile;
     imageFile = openMNISTImageFile(MNIST_TESTING_SET_IMAGE_FILE_NAME);
     labelFile = openMNISTLabelFile(MNIST_TESTING_SET_LABEL_FILE_NAME);
     
     int errCount = 0;
     
-    // Loop through all images in the file
-    for (int imgCount=0; imgCount<MNIST_MAX_TESTING_IMAGES; imgCount++){
+    //Se recorren las imagenes
+    for (int imgCount = 0; imgCount < MNIST_MAX_TESTING_IMAGES; imgCount++){
         
-        // Reading next image and its corresponding label
+        //Se lee cada imagen con su etiqueta
         MNIST_Image img = getImage(imageFile);
         MNIST_Label lbl = getLabel(labelFile);
-        
-        // Convert the MNIST image to a standardized vector format and feed into the network
+
+        //Se convierte la imagen a un vector para ingresar a la red        
         Vector *inpVector = getVectorFromImage(&img);
         feedInput(nn, inpVector);
         
-        // Feed forward all layers (from input to hidden to output) calculating all nodes' output
+        //Se hacen los calculos hacia delante
         feedForwardNetwork(nn);
         
-        // Classify image by choosing output cell with highest output
+        //Se clasifica la imagen escogiendo la salida mas alta
         int classification = getNetworkClassification(nn);
-        if (classification!=lbl) errCount++;
+        if (classification!=lbl){
+             errCount++;
+        }
         
-        // Display progress during testing
-        //displayTestingProgress(imgCount, errCount, 5,5);
-        displayImage(&img, lbl, classification, 7,6);
+        //Se muestra la imagen 
+        displayImage(&img, lbl, classification, 7, 6);
         getchar();
         
     }
@@ -122,43 +107,23 @@ void testNetwork(Network *nn){
 }
 
 
-
-
-
-/**
- * @details Main function to run MNIST-1LNN
- */
-
 int main(int argc, const char * argv[]) {
     
-    // remember the time in order to calculate processing time at the end
-    time_t startTime = time(NULL);
     
-    // clear screen of terminal window
     printf("\e[1;1H\e[2J"); //Limpiar pantalla
-    printf("    MNIST-3LNN: a simple 3-layer neural network processing the MNIST handwritten digit images\n\n");
+    printf("Red neuronal de 3 capas para numeros escritos a mano\n");
     
-    // Create neural network using a manually allocated memory space
+    //Se crea la red neuronal
     Network *nn = createNetwork(MNIST_IMG_HEIGHT*MNIST_IMG_WIDTH, 20, 10);
-    
-//    displayNetworkWeightsForDebugging(nn);
-//    exit(1);
-    
-    // Training the network by adjusting the weights based on error using the  TRAINING dataset
+
+    //Se entrena la red    
     trainNetwork(nn);
     
-    // Testing the during training derived network using the TESTING dataset
+    //Se prueba la red
     testNetwork(nn);
     
-    // Free the manually allocated memory for this network
+    //Se libera memoria
     free(nn);
-    
-    //locateCursor(36, 5);
-    
-    // Calculate and print the program's total execution time
-    time_t endTime = time(NULL);
-    double executionTime = difftime(endTime, startTime);
-    printf("\n    DONE! Total execution time: %.1f sec\n\n",executionTime);
 
     return 0;
 }
