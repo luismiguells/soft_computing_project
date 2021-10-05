@@ -1,2 +1,2 @@
-# Proyecto01CF
-Proyecto 01 de computación flexible 
+# Soft computing project 
+A neural network to identify numbers from MNIST dataset.
